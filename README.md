@@ -57,10 +57,6 @@ This project simulates a basic bug tracking system used in software testing. It 
 
 Anurag Kushwaha
 
----
-
-⭐ If you like this project, give it a star!
-
 ## 📸 Project Screenshot
 
 ![Screenshot](screenshot.png)
