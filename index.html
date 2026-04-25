@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bug Tracker</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #f4f4f4;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+input, select {
+    padding: 8px;
+    margin: 5px;
+}
+
+button {
+    padding: 8px 12px;
+    background: green;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+li {
+    background: white;
+    padding: 10px;
+    margin: 5px 0;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🐞 Bug Tracker System</h1>
+
+<input id="title" placeholder="Bug Title">
+<input id="desc" placeholder="Description">
+
+<select id="severity">
+<option>Low</option>
+<option>Medium</option>
+<option>High</option>
+</select>
+
+<button onclick="addBug()">Add Bug</button>
+
+<ul id="bugList"></ul>
+
+<script>
+
+// load data
+window.onload = function() {
+    loadBugs();
+};
+
+function addBug() {
+    let title = document.getElementById("title").value;
+    let desc = document.getElementById("desc").value;
+    let severity = document.getElementById("severity").value;
+
+    if(title === "" || desc === "") {
+        alert("Fill all fields");
+        return;
+    }
+
+    let bugs = JSON.parse(localStorage.getItem("bugs")) || [];
+
+    bugs.push({title, desc, severity});
+
+    localStorage.setItem("bugs", JSON.stringify(bugs));
+
+    loadBugs();
+
+    document.getElementById("title").value = "";
+    document.getElementById("desc").value = "";
+}
+
+function loadBugs() {
+    let bugList = document.getElementById("bugList");
+    bugList.innerHTML = "";
+
+    let bugs = JSON.parse(localStorage.getItem("bugs")) || [];
+
+    bugs.forEach((bug, index) => {
+        let li = document.createElement("li");
+
+        li.innerHTML = `
+        <b>${bug.title}</b> - ${bug.desc} [${bug.severity}]
+        <button onclick="deleteBug(${index})">❌</button>
+        `;
+
+        bugList.appendChild(li);
+    });
+}
+
+function deleteBug(index) {
+    let bugs = JSON.parse(localStorage.getItem("bugs")) || [];
+
+    bugs.splice(index, 1);
+
+    localStorage.setItem("bugs", JSON.stringify(bugs));
+
+    loadBugs();
+}
+
+</script>
+
+</body>
+</html>
