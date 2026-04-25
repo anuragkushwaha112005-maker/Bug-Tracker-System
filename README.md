@@ -56,7 +56,6 @@ This project simulates a basic bug tracking system used in software testing. It 
 ## 👨‍💻 Author
 
 Anurag Kushwaha
-
 ## 📸 Project Screenshot
 
 ![Screenshot](screenshot.png)
